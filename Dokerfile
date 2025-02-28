@@ -1,1 +1,19 @@
+# Используем официальный базовый образ Ubuntu
+FROM ubuntu:22.04
+
+# Устанавливаем необходимые зависимости
+RUN apt-get update && \
+    apt-get install -y curl wget sudo && \
+    rm -rf /var/lib/apt/lists/*
+
+# Клонируем или устанавливаем 3x-ui
+# Здесь можно использовать официальный скрипт установки или скачать бинарный файл
+# Пример: загрузка и установка через скрипт (замените URL на актуальный)
+RUN curl -Ls https://raw.githubusercontent.com/your-repo/3x-ui-install/main/install.sh | bash
+
+# Открываем порты, которые используются 3x-ui
+EXPOSE 54321 1010
+
+# Запускаем 3x-ui при старте контейнера
+CMD ["/usr/local/bin/3x-ui", "-port", "54321", "-username", "Admin", "-password", "admin"]
 
